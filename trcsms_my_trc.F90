@@ -49,7 +49,6 @@ MODULE trcsms_my_trc
       REAL(wp) ::  j_pa      !desorption rate
       REAL(wp), POINTER, DIMENSION(:,:,:)  ::   rfse3t
 
-
    ! Defined HERE the arrays specific to MY_TRC sms and ALLOCATE them in trc_sms_my_trc_alloc
       CHARACTER(len=100), PUBLIC ::   cn_dir       = './'    !: Root directory for location of river file
       TYPE(FLD_N)                ::   sn_Pa_diss ! information about the diss. Pa file to be read
@@ -103,8 +102,6 @@ CONTAINS
       IF(lwp) WRITE(numout,*) ' trc_sms_my_trc:  MY_TRC model really??'
       IF( l_trdtrc )  CALL wrk_alloc( jpi, jpj, jpk, ztrmyt)
   
-  
-
 
        coeff=1.0/(365.0*86400.0)
        j_pa=0.31*coeff
@@ -168,8 +165,6 @@ CONTAINS
 
 
 
-
-
  !calculate diss Pa equations
        DO jk=1,jpk
          WHERE (gphit >= 69)
@@ -220,51 +215,6 @@ CONTAINS
             END WHERE
        END DO
 
-
-!        DO jj = 1, jpj
-!             DO ji = 1,jpi
-!                ibot   = mbkt(ji,jj)        ! bottom level of t-point
-!                ibotm1 = mbkt(ji,jj) - 1    ! Just above last level      
-!                IF (ibotm1>=1) THEN
-               ! Bottom level no flux condition for diss. elements:
-!                trn(ji,jj,ibot,jpmyt1)=trn(ji,jj,ibotm1,jpmyt1)!ibot/ibotm1
-!                trn(ji,jj,ibot,jpmyt2)=trn(ji,jj,ibotm1,jpmyt2)
-!                END IF
-
-!                IF (jj==731 .AND. ji==221) THEN
-!                    WRITE(numout,*),'trn (ji,jj,ibot,jpmyt1)',ji,jj,ibot,trn(ji,jj,ibot,jpmyt1)
-!                    WRITE(numout,*),'trn (ji,jj,ibotm1,jpmyt1)',ji,jj,ibotm1,trn(ji,jj,ibotm1,jpmyt1)
-!                    WRITE(numout,*),'trn (ji,jj,ibot,jpmyt3)',ji,jj,ibot,trn(ji,jj,ibot,jpmyt3) 
-!                END IF
-!             END DO
-!        END DO
-
-
-!        DO jj = 1, jpj
-!             DO ji = 1,jpi
-!                ibot   = mbkt(ji,jj)      
-!                ibotm1 = mbkt(ji,jj) -1             
-!                ibotm2 = mbkt(ji,jj) -2   
-
-                ! Bottom level  Neumman condition for part. elements:
-!                IF (ibotm2>=1) THEN
-!                trn(ji,jj,ibot,jpmyt3)=trn(ji,jj,ibotm1,jpmyt3)+&
-!                                       (trn(ji,jj,ibotm1,jpmyt3)-trn(ji,jj,ibotm2,jpmyt3))&
-!                                       *fse3t(ji,jj,ibotm2)/fse3t(ji,jj,ibotm1)
-
-
-!                trn(ji,jj,ibot,jpmyt4)=trn(ji,jj,ibotm1,jpmyt4)+&
-!                                       (trn(ji,jj,ibotm1,jpmyt4)-trn(ji,jj,ibotm2,jpmyt4))&
-!                                       *fse3t(ji,jj,ibotm2)/fse3t(ji,jj,ibotm1)
-!                END IF
-!                IF ((jj==731) .AND. (ji==221)) THEN
-!                    WRITE(numout,*),'fse3t(ji,jj,ibotm2),fse35(ibotm1)',ji,jj,ibotm2,ibotm1,fse3t(ji,jj,ibotm2),fse3t(ji,jj,ibotm1)
-!                    WRITE(numout,*),'trn (ji,jj,ibotm1,jpmyt3)',ji,jj,trn(ji,jj,ibotm1,jpmyt3)
-!                    WRITE(numout,*),'trn (ji,jj,ibotm2,jpmyt3)',ji,jj,trn(ji,jj,ibotm2,jpmyt3)
-!                    WRITE(numout,*),'trn (ji,jj,ibot,jpmyt3)',ji,jj,trn(ji,jj,ibot,jpmyt3)
-!                END IF
-!             END DO
-!        END DO
 
 
 
